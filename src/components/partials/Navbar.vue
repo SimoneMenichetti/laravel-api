@@ -11,6 +11,8 @@ export default {
           return 'about-shadow';
         case 'lab':
           return 'projects-shadow';
+          case 'tech':
+          return 'tech-shadow';
         default:
           return '';
       }
@@ -27,6 +29,10 @@ export default {
         // Colore blu per Projects
         case 'lab':
           return { color: 'rgb(61, 12, 174)' }; 
+
+           // Colore blu per Projects
+        case 'tech':
+          return { color: 'rgb(133, 156, 35)' }; 
         // Colore predefinito
         default:
           return { color: 'rgba(255, 255, 255, 0.257)' }; 
@@ -67,6 +73,15 @@ export default {
             Projects
           </router-link>
         </li>
+        <li>
+          <router-link
+            :to="{ name: 'tech' }"
+            class="nav-link"
+            :style="currentLinkStyle"
+          >
+          Technologies
+          </router-link>
+        </li>
       </ul>
     </div>
   </template>
@@ -92,31 +107,36 @@ ul {
       text-transform: uppercase;
       padding: 5px 10px;
       border: green;
-      color: inherit; /* Utilizza il colore ereditato dallo stile dinamico */
+      color: inherit; 
       
       &:hover {
-        opacity: 0.7; /* Effetto hover */
+        opacity: 0.7;
       }
 
       &.router-link-active {
         font-weight: bold;
-        border-bottom: 2px solid currentColor; /* Colore del bordo basato sul colore corrente */
+        border-bottom: 2px solid currentColor;
       }
     }
   }
 }
 
     /* Classi specifiche per il box-shadow in base alla rotta corrente */
-    .home-shadow {
-  box-shadow: 0px 0px 30px rgb(12, 174, 61); /* Colore per Home */
+  .home-shadow {
+  /* Colore per Home */
+  box-shadow: 0px 0px 30px rgb(12, 174, 61); 
 }
-
+  /* Colore per About us */
 .about-shadow {
-  box-shadow: 0px 0px 30px rgb(174, 61, 12); /* Colore per About us */
+  box-shadow: 0px 0px 30px rgb(174, 61, 12); 
 }
-
+/* Colore per Projects */
 .projects-shadow {
-  box-shadow: 0px 0px 30px rgb(61, 12, 174); /* Colore per Projects */
+  box-shadow: 0px 0px 30px rgb(61, 12, 174); 
+}
+// colore per technologies
+.tech-shadow {
+  box-shadow: 0px 0px 30px rgb(133, 156, 35);
 }
 
 </style>
