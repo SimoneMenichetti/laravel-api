@@ -13,6 +13,8 @@ export default {
           return 'projects-shadow';
         case 'tech':
           return 'tech-shadow';
+          case 'type':
+          return 'type-shadow';
         default:
           return '';
       }
@@ -36,6 +38,9 @@ export default {
             // Verde oliva per Technologies
           case 'tech':
             return { color: 'rgb(133, 156, 35)' }; 
+            // colore Types
+            case 'type':
+            return { color: 'rgb(35, 156, 152)' };
              // Colore predefinito
           default:
             return { color: 'rgba(255, 255, 255, 0.257)' };
@@ -89,6 +94,15 @@ export default {
           Technologies
         </router-link>
       </li>
+      <li>
+        <router-link
+          :to="{ name: 'type' }"
+          class="nav-link"
+          :style="getLinkStyle('type')"
+        >
+          Types
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -96,7 +110,6 @@ export default {
 
 
 <style lang="scss" scoped>
-
 ul {
   backdrop-filter: blur(30px);
   border: 2px solid rgba(255, 255, 255, 0.18);
@@ -114,9 +127,8 @@ ul {
       text-decoration: none;
       text-transform: uppercase;
       padding: 5px 10px;
-      border: green;
       color: inherit; 
-      
+
       &:hover {
         opacity: 0.7;
       }
@@ -129,22 +141,24 @@ ul {
   }
 }
 
-    /* Classi specifiche per il box-shadow in base alla rotta corrente */
-  .home-shadow {
-  /* Colore per Home */
+/* box-shadow in base alla rotta  */
+.home-shadow {
   box-shadow: 0px 0px 30px rgb(12, 174, 61); 
 }
-  /* Colore per About us */
+
 .about-shadow {
   box-shadow: 0px 0px 30px rgb(174, 61, 12); 
 }
-/* Colore per Projects */
+
 .projects-shadow {
   box-shadow: 0px 0px 30px rgb(61, 12, 174); 
 }
-// colore per technologies
+
 .tech-shadow {
-  box-shadow: 0px 0px 30px rgb(133, 156, 35);
+  box-shadow: 0px 0px 30px rgb(133, 156, 35); 
 }
 
+.type-shadow {
+  box-shadow: 0px 0px 30px rgb(35, 156, 152); 
+}
 </style>
