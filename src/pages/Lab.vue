@@ -21,7 +21,7 @@ export default {
     getApi(page = 1) {
       this.isLoading = true;
       axios
-      .get(`${store.apiUrl}?page=${page}`)
+      .get(`${store.apiUrl}projects?page=${page}`)
         .then(result => {
           this.projects = result.data.results.data; 
           this.totalPages = result.data.results.last_page; 
