@@ -14,7 +14,10 @@ export default{
 <template>
   <div class="container">
     <NavBar/>
-    <RouterView></RouterView>
+    <div>
+      <RouterView></RouterView>
+    </div>
+    
   </div>
 
 </template>

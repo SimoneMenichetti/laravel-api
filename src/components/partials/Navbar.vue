@@ -11,31 +11,38 @@ export default {
           return 'about-shadow';
         case 'lab':
           return 'projects-shadow';
-          case 'tech':
+        case 'tech':
           return 'tech-shadow';
         default:
           return '';
       }
     },
-    // Determina lo stile dei link in base alla rotta corrente
-    currentLinkStyle() {
-      switch (this.$route.name) {
-        // verde home
-        case 'home':
-          return { color: 'rgb(12, 174, 61)' }; 
-        //   arancione about
-        case 'about':
-          return { color: 'rgb(174, 61, 12)' }; 
-        // Colore blu per Projects
-        case 'lab':
-          return { color: 'rgb(61, 12, 174)' }; 
-
-           // Colore blu per Projects
-        case 'tech':
-          return { color: 'rgb(133, 156, 35)' }; 
-        // Colore predefinito
-        default:
-          return { color: 'rgba(255, 255, 255, 0.257)' }; 
+  },
+  methods: {
+    // Restituisce lo stile per il link corrente
+    getLinkStyle(routeName) {
+     
+      if (this.$route.name === routeName) {
+        switch (routeName) {
+          // Verde per Home
+          case 'home':
+            return { color: 'rgb(12, 174, 61)' }; 
+            // Arancione per About
+          case 'about':
+            return { color: 'rgb(174, 61, 12)' }; 
+            // Blu per Projects
+          case 'lab':
+            return { color: 'rgb(61, 12, 174)' }; 
+            // Verde oliva per Technologies
+          case 'tech':
+            return { color: 'rgb(133, 156, 35)' }; 
+             // Colore predefinito
+          default:
+            return { color: 'rgba(255, 255, 255, 0.257)' };
+        }
+      } else {
+        // Colore per i link non attivi
+        return { color: 'rgba(255, 255, 255, 0.5)' };
       }
     },
   },
@@ -43,48 +50,49 @@ export default {
 </script>
 
 <template>
-    <div>
-      <!-- Applica una classe dinamica per il box-shadow basata sulla rotta corrente -->
-      <ul :class="currentRouteClass" class="Navbar">
-        <li>
-          <router-link
-            :to="{ name: 'home' }"
-            class="nav-link"
-            :style="currentLinkStyle"
-          >
-            Home
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            :to="{ name: 'about' }"
-            class="nav-link"
-            :style="currentLinkStyle"
-          >
-            About us
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            :to="{ name: 'lab' }"
-            class="nav-link"
-            :style="currentLinkStyle"
-          >
-            Projects
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            :to="{ name: 'tech' }"
-            class="nav-link"
-            :style="currentLinkStyle"
-          >
+  <div>
+    <!-- Applica una classe dinamica per il box-shadow basata sulla rotta corrente -->
+    <ul :class="[currentRouteClass, 'Navbar']">
+      <li>
+        <router-link
+          :to="{ name: 'home' }"
+          class="nav-link"
+          :style="getLinkStyle('home')"
+        >
+          Home
+        </router-link>
+      </li>
+      <li>
+        <router-link
+          :to="{ name: 'about' }"
+          class="nav-link"
+          :style="getLinkStyle('about')"
+        >
+          About us
+        </router-link>
+      </li>
+      <li>
+        <router-link
+          :to="{ name: 'lab' }"
+          class="nav-link"
+          :style="getLinkStyle('lab')"
+        >
+          Projects
+        </router-link>
+      </li>
+      <li>
+        <router-link
+          :to="{ name: 'tech' }"
+          class="nav-link"
+          :style="getLinkStyle('tech')"
+        >
           Technologies
-          </router-link>
-        </li>
-      </ul>
-    </div>
-  </template>
+        </router-link>
+      </li>
+    </ul>
+  </div>
+</template>
+
 
 
 <style lang="scss" scoped>
