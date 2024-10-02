@@ -1,12 +1,14 @@
 <script>
 import axios from 'axios';
-import {store} from '../store/store';
+import { store } from '../store/store';
 import Loader from '../components/partials/Loader.vue';
+import Paginator from '../components/partials/Paginator.vue';
 
 export default {
   name: 'Lab',
   components:{
-    Loader
+    Loader,
+    Paginator
   },
   data() {
     return {
@@ -23,6 +25,13 @@ export default {
       axios
       .get(`${store.apiUrl}projects?page=${page}`)
         .then(result => {
+        console.log(result.data);
+
+        this.projects = result.data.results.data; 
+          console.log('Projects:', this.projects);
+          this.projects.forEach(project => {
+            console.log('Project Image Path:', project.path_image);
+          });
           this.projects = result.data.results.data; 
           this.totalPages = result.data.results.last_page; 
           this.currentPage = result.data.results.current_page;
@@ -83,35 +92,20 @@ export default {
 
             <!-- itera le path_image per ogni progetto -->
             <td>
-              <img v-if="project.path_image" :src="project.path_image" alt="Project Image" class="img-thumbnail" style="width: 100px;" />
-              <span v-else>Nessuna immagine disponibile</span>
+                <img v-if="project.path_image" :src="project.path_image " alt="Project Image" class="img-thumbnail" />
+                <span v-else>Nessuna immagine disponibile</span>
             </td>
             <td>{{ new Date(project.created_at).toLocaleDateString() }}</td>
             <td>{{ new Date(project.updated_at).toLocaleDateString() }}</td>
           </tr>
         </tbody>
       </table>
-
-      <!-- inserisco la paginazione con il next ed il prev -->
-      <nav>
-      <ul class="pagination justify-content-center ">
-        <!-- button prev -->
-        <li class="page-item" :class="{ disable: currentPage === 1}">
-          <button class="page-link" href="#" @click="changePage(currentPage -1)" >Prev</button>
-        </li>
-
-        <!-- Link delle Pagine -->
-        <li v-for="page in totalPages" :key="page" class="page-item" :class="{ active: currentPage === page }">
-          <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-        </li>
-
-        <!-- next -->
-        <li class="page-item" :class="{disabled: currentPage === totalPages}">
-          <button class="page-link " href="#" @click.prevent="changePage(currentPage +1)">Next</button>
-        </li>
-      </ul>
-      </nav>
-    </div>
+      <Paginator
+        :currentPage="currentPage"
+        :totalPages="totalPages"
+        @change-page="changePage"
+      />
+      </div>
   </div>
 </template>
 
@@ -153,36 +147,10 @@ tr{
 }
 
 
-.table img {
-  max-width: 100px;
-  height: auto; 
+td img{
+  width: 50px;
 }
 
-// paginazione
-.pagination {
-  margin-top: 20px; 
-  display: flex; 
-  justify-content: center; 
-}
 
-.pagination .page-item {
-  margin-right: 5px; 
-  text-decoration: none;
-}
 
-a{
-  margin: 0px 6px;
-  color: brown;
-
-}
-
-a:hover{
-  color: aliceblue;
-  
-}
-
-button{
- background-color: rgb(17, 17, 151);
- color: brown;
-}
 </style>
